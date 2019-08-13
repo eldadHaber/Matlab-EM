@@ -1,0 +1,13 @@
+function[V,F,L] = getMeshGeometry(h1,h2,h3)
+
+n1 = length(h1); n2 = length(h2); n3 = length(h3);
+V = kron(sdiag(h3),kron(sdiag(h2),sdiag(h1)));
+
+F = sdiag([diag(kron(sdiag(h3),kron(sdiag(h2),speye(n1+1)))); ...
+           diag(kron(sdiag(h3),kron(speye(n2+1),sdiag(h1)))); ...
+           diag(kron(speye(n3+1),kron(sdiag(h2),sdiag(h1))))]);
+                
+L = sdiag([diag(kron(speye(n3+1),kron(speye(n2+1),sdiag(h1)))); ...
+          diag(kron(speye(n3+1),kron(sdiag(h2),speye(n1+1)))); ...
+          diag(kron(sdiag(h3),kron(speye(n2+1),speye(n1+1))))]);
+                                      
